@@ -6,9 +6,7 @@
   <color name="material_green_700">#00C853</color>
 
   <!-- Line graph colors -->
-  <color name="line_set">#e50000</color>
-  <color name="line_stroke">#e50000</color>
-  <color name="line_dots">#eef1f6</color>
-  <color name="line_paint">#308E9196</color>
-  <color name="line_labels">#FF8E9196</color>
+  <color name="line_color">#758cbb</color>
+  <color name="line_fill">#2d374c</color>
+  <color name="line_labels">#6a84c3</color>
 </resources>
