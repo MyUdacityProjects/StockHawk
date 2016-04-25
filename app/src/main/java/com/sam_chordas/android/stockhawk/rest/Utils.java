@@ -26,7 +26,7 @@ public class Utils {
 
     public static boolean showPercent = true;
 
-    public static ArrayList quoteJsonToContentVals(String JSON) throws StockNotFoundException{
+    public static ArrayList quoteJsonToContentVals(String JSON) throws StockNotFoundException {
         ArrayList<ContentProviderOperation> batchOperations = new ArrayList<>();
         JSONObject jsonObject = null;
         JSONArray resultsArray = null;

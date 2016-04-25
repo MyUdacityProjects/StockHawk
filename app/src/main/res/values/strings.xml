@@ -12,4 +12,7 @@
     <string name="widget_title">Today\'s Market</string>
     <string name="network_toast">Uh-oh! This app requires an internet connection</string>
     <string name="stock_already_saved">This stock is already saved!</string>
+    <string name="string_symbol" translatable="false">symbol</string>
+
+    <string name="string_set_background_resource" translatable="false">setBackgroundResource</string>
 </resources>

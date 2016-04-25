@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.google.android.gms.gcm.GcmNetworkManager;
 import com.google.android.gms.gcm.GcmTaskService;
 import com.google.android.gms.gcm.TaskParams;
+import com.sam_chordas.android.stockhawk.R;
 import com.sam_chordas.android.stockhawk.data.QuoteColumns;
 import com.sam_chordas.android.stockhawk.data.QuoteProvider;
 import com.sam_chordas.android.stockhawk.exceptions.StockNotFoundException;
@@ -36,6 +37,7 @@ public class StockTaskService extends GcmTaskService {
     private Context mContext;
     private StringBuilder mStoredSymbols = new StringBuilder();
     private boolean isUpdate;
+    private final String UTF_ENCODING = "UTF-8";
 
     public StockTaskService() {
     }
@@ -63,12 +65,12 @@ public class StockTaskService extends GcmTaskService {
         try {
             // Base URL for the Yahoo query
             urlStringBuilder.append(Utils.YAHOO_BASE_URL);
-            urlStringBuilder.append(URLEncoder.encode(Utils.SEARCH_QUERY, "UTF-8"));
+            urlStringBuilder.append(URLEncoder.encode(Utils.SEARCH_QUERY, UTF_ENCODING));
 
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        if (params.getTag().equals("init") || params.getTag().equals("periodic")) {
+        if (params.getTag().equals(StockIntentService.TAG_TYPE_INIT) || params.getTag().equals(StockIntentService.TAG_TYPE_PERIODIC)) {
             isUpdate = true;
             initQueryCursor = mContext.getContentResolver().query(QuoteProvider.Quotes.CONTENT_URI,
                     new String[]{"Distinct " + QuoteColumns.SYMBOL}, null,
@@ -77,7 +79,7 @@ public class StockTaskService extends GcmTaskService {
                 // Init task. Populates DB with quotes for the symbols seen below
                 try {
                     urlStringBuilder.append(
-                            URLEncoder.encode("\"YHOO\",\"AAPL\",\"GOOG\",\"MSFT\")", "UTF-8"));
+                            URLEncoder.encode("\"YHOO\",\"AAPL\",\"GOOG\",\"MSFT\")", UTF_ENCODING));
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
                 }
@@ -91,17 +93,17 @@ public class StockTaskService extends GcmTaskService {
                 }
                 mStoredSymbols.replace(mStoredSymbols.length() - 1, mStoredSymbols.length(), ")");
                 try {
-                    urlStringBuilder.append(URLEncoder.encode(mStoredSymbols.toString(), "UTF-8"));
+                    urlStringBuilder.append(URLEncoder.encode(mStoredSymbols.toString(), UTF_ENCODING));
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
                 }
             }
-        } else if (params.getTag().equals("add")) {
+        } else if (params.getTag().equals(StockIntentService.TAG_TYPE_ADD)) {
             isUpdate = false;
             // get symbol from params.getExtra and build query
-            String stockInput = params.getExtras().getString("symbol");
+            String stockInput = params.getExtras().getString(mContext.getString(R.string.string_symbol));
             try {
-                urlStringBuilder.append(URLEncoder.encode("\"" + stockInput + "\")", "UTF-8"));
+                urlStringBuilder.append(URLEncoder.encode("\"" + stockInput + "\")", UTF_ENCODING));
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
