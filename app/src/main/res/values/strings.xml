@@ -13,6 +13,7 @@
     <string name="network_toast">Uh-oh! This app requires an internet connection</string>
     <string name="stock_already_saved">This stock is already saved!</string>
     <string name="no_stock_data">No data</string>
+    <string name="add_stock">Add a stock</string>
 
 
     <string name="string_symbol" translatable="false">symbol</string>
